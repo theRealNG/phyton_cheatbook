@@ -47,6 +47,10 @@ plt.show()
 # %% Histograms %% using pandas
 recent_grads.hist(column=["Median","Sample_size"])
 
+# another style
+recent_grads["Median"].hist()
+plt.show()
+
 # customizing histogram
 # Set the `layout` parameter as `(2,1)` so the graphs are displayed as 2 rows & 1 column
 # Then set `grid` parameter to `False`.
@@ -65,3 +69,26 @@ plt.scatter(recent_grads['Unemployment_rate'], recent_grads['P25th'], color='red
 plt.scatter(recent_grads['ShareWomen'], recent_grads['P25th'], color='blue')
 plt.show()
 
+
+# %% Seaborn %%
+import seaborn as sns
+# http://stanford.edu/~mwaskom/software/seaborn/introduction.html
+# setting label on x-axis and y-axis
+sns.distplot(births['prglngth'], kde=False)
+sns.axlabel('Pregnancy Length, weeks', 'Frequency')
+# kde will plot kernel density estimate when true
+
+# Setting style
+sns.set_style(style='dark')
+
+# Boxplot
+births = pd.read_csv('births.csv')
+sns.load_dataset
+sns.boxplot(x='birthord', y='agepreg', data=births)
+
+# pair plotting
+# http://stanford.edu/~mwaskom/software/seaborn/generated/seaborn.pairplot.html#seaborn-pairplot
+# Generate a pair plot for the columns agepreg, prglngth, and birthord, in that order
+sns.load_dataset
+sns.pairplot(data=births, vars=['agepreg','prglngth','birthord'])
+plt.show()
