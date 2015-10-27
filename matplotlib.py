@@ -70,6 +70,48 @@ plt.scatter(recent_grads['ShareWomen'], recent_grads['P25th'], color='blue')
 plt.show()
 
 
+# %% Matplotlib internals %%
+# Figure is the top-level Matplotlib object
+
+# figsize(w,h) specifies the width and height of the plotting area
+fig = plt.figure(figsize=(5,7))
+
+# add_subplot lets you add individual plots to the figure instance
+# 1st param represent the row, 2nd the column number and the last param refers to the nth plot to be returned
+ax = fig.add_subplot(1,1,2)
+
+# customizing the values for x and y axis
+# x axis ranges from 1 to 12
+# http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_xlim
+ax.set_xlim([1,12])
+# y axis ranges from 15 to 105
+# http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_ylim
+ax.set_ylim([15,105])
+
+# setting multiple attributes at once
+ax.set(xlabel="Month",ylabel="Temperature",title="Year Round Temperature",xlim=[0,13],ylim=[10,110])
+
+# setting up a scatter plot
+ax.scatter(month, temperature, color="darkblue", marker="o")
+
+# adding data to mulitiple subplots
+month_2013 = [1,2,3,4,5,6,7,8,9,10,11,12]
+temperature_2013 = [32,18,40,40,50,45,52,70,85,60,57,45]
+month_2014 = [1,2,3,4,5,6,7,8,9,10,11,12]
+temperature_2014 = [35,28,35,30,40,55,50,71,75,70,67,49]
+
+fig = plt.figure()
+ax_left = fig.add_subplot(1,2,1)
+ax_left.set(title="2013", xlim=[0,13], ylim=[10,110])
+ax_left.scatter(month_2013, temperature_2013, color="darkblue", marker="o")
+
+ax_right = fig.add_subplot(1,2,2)
+ax_right.set(title="2014", xlim=[0,13], ylim=[10,110])
+ax_right.scatter(month_2014, temperature_2014, color="darkgreen", marker="o")
+
+plt.show()
+
+
 # %% Seaborn %%
 import seaborn as sns
 # http://stanford.edu/~mwaskom/software/seaborn/introduction.html
