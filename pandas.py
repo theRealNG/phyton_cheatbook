@@ -12,6 +12,12 @@ num_columns = len(housing_2013.columns)
 # Returns the first 5 rows of data not counting column headers
 housing_2013.head(5)
 
+# Sorting data
+pixar_movies = pixar_movies.sort(['Opening Weekend'],ascending=[True])
+
+# Renaming a column
+df.rename(columns={'$a': 'a', '$b': 'b'}, inplace=True)
+
 # Formatting data
 # the bracket notation [ ] is how we specify the the list of columns we want to select
 filtered_housing_2013 = housing_2013[[ 'AGE1', 'FMR','TOTSAL' ]]
@@ -39,22 +45,47 @@ titanic_reindexed = new_titanic_survival.reset_index(drop=True)
 # by default, .apply() will iterate throuh each column in a dataframe and perform a function on it
 def not_null_count(col):
     col_null = pd.isnull(col)
-            not_null = col[col_null == False]
-                return len(not_null)
+    not_null = col[col_null == False]
+    return len(not_null)
 
 column_not_null_count = titanic_survival.apply(not_null_count)
+
+# another example
+def convert_to_ratings(col):
+    if col == 'Very favorably':
+        return 6
+    elif col == 'Somewhat favorably':
+        return 5
+    elif col == 'Neither favorably nor unfavorably (neutral)':
+        return 4
+    elif col == 'Somewhat unfavorably':
+        return 3
+    elif col == 'Unfamiliar (N/A)':
+        return 2
+    elif col == 'Very unfavorably':
+        return 1
+    else:
+        return col
+star_wars[character] = star_wars[character].apply(convert_to_ratings)
 
 # for applying a function on each row
 def age_is_minor(row):
     age = row["age"]
-            if pd.isnull(age):
-                return "unknown"
-            elif age >= 18:
-                return "adult"
-            else:
-                return "minor"
+    if pd.isnull(age):
+        return "unknown"
+    elif age >= 18:
+        return "adult"
+    else:
+        return "minor"
 
 age_labels = titanic_survival.apply(age_is_minor, axis=1)
+
+# another example
+def number_of_deaths(row):
+    counts = row[['Death2','Death1','Death3','Death4','Death5']].value_counts()
+    return counts['YES'] if 'YES' in counts else 0
+
+true_avengers['Deaths'] = true_avengers.apply(number_of_deaths, axis=1)
 
 
 # %% Pivot Tables %%

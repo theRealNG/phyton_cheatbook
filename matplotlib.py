@@ -92,3 +92,8 @@ sns.boxplot(x='birthord', y='agepreg', data=births)
 sns.load_dataset
 sns.pairplot(data=births, vars=['agepreg','prglngth','birthord'])
 plt.show()
+
+# Plotting multiple values against profits
+sns.pairplot(data=pixar_movies, x_vars='profit', y_vars=['Length', 'Opening Weekend', 'Worldwide Gross', 'Domestic Gross', 'International Gross', 'Production Budget'], hue="Oscars Won")
+plt.xticks(rotation=90)
+plt.show()
