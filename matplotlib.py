@@ -94,6 +94,12 @@ ax.set(xlabel="Month",ylabel="Temperature",title="Year Round Temperature",xlim=[
 # setting up a scatter plot
 ax.scatter(month, temperature, color="darkblue", marker="o")
 
+# Hiding x-axis
+ax.xaxis.set_visible(False)
+
+# Setting up Historgram
+ax1.hist(rg_cols['ShareWomen'])
+
 # adding data to mulitiple subplots
 month_2013 = [1,2,3,4,5,6,7,8,9,10,11,12]
 temperature_2013 = [32,18,40,40,50,45,52,70,85,60,57,45]
