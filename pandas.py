@@ -26,6 +26,64 @@ filtered_housing_2013 = housing_2013[[ 'AGE1', 'FMR','TOTSAL' ]]
 # will ignore the rows where age or body or home.dest has a missing value
 new_titanic_survival = titanic_survival.dropna(subset=["age","body","home.dest"])
 
+# calculating Median
+median_age = numpy.median(titanic_survival["age"])
+
+# calculating Mean
+mean_age = titanic_survival["age"].mean()
+
+# calculating skew
+skew_age = skew(titanic_survival["age"])
+
+# calculating kurtosis
+# kurtosis measures the shape of a distribution.
+kurtosis_age = kurtosis(titanic_survival["age"])
+
+# variance is the sum of the mean difference of all the elements by number of elements
+mean_pts = nba_stats["pts"].mean()
+mean_diff_values = [  val - mean_pts for val in nba_stats["pts"] ]
+mean_square_diff_values = [ val**2 for val in mean_diff_values ]
+point_variance = sum(mean_square_diff_values)/len(mean_square_diff_values)
+
+stats_variance = nba_stats["pts"].var()
+
+# standard deviation
+# how far data points are from the mean is called standard deviation.
+def calculate_std_deviation(col_name):
+    mean_value = nba_stats[col_name].mean()
+    mean_diff = [ val - mean_value for val in nba_stats[col_name] ]
+    mean_sq_diff = [ val ** 2 for val in mean_diff ]
+    variance = sum(mean_sq_diff)/len(mean_sq_diff)
+    std_deviation = variance ** (1/2)
+    return std_deviation
+
+# Find the co-relation between two set of values
+from scipy.stats.stats import pearsonr
+co_relation_value, pvalue = pearsonr(nba_stats["fta"], nba_stats["pts"])
+
+# finding covariance
+# You can use the cov function from numpy to compute covariance.
+# It returns a 2x2 matrix, though.
+# cov(nba_stats["pf"], nba_stats["stl"])[0,1]
+# will give the covariance between the "pf" and "stl"
+cov(nba_stats["fta"], nba_stats["blk"])[0,1]
+
+# Plot a blue line at median
+plt.axvline(median, color="b")
+
+# Plotting a line
+x = [0, 1, 2, 3, 4, 5]
+x = np.asarray([0, 1, 2, 3, 4, 5])
+y = x + 1
+plt.plot(x, y)
+plt.show()
+
+# Finding slope of a line
+m = (cov(x,y)/x.var())[0,1]
+# Finding the intercept
+c = y.mean() - m * x.mean()
+
+
 # %% Indexing %%
 #.iloc works by position (row/column number)
 row_4 = new_titanic_survival.iloc[4,:]
