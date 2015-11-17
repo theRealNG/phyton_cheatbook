@@ -9,8 +9,16 @@ titanic_survival["fare"].mean()
 # Finding number of columns
 num_columns = len(housing_2013.columns)
 
+# Finding the index of the least element
+lowest_income_county = income.iloc[income["median_income"].idxmin()]["county"]
+
 # Returns the first 5 rows of data not counting column headers
 housing_2013.head(5)
+
+# Selecting data
+red_flags = len(flags[flags['red'] == 1])
+orange_flags = len(flags[flags['orange'] == 1])
+red_and_orange_flags = len(flags[(flags['orange'] == 1) & (flags['red'] ==1)])
 
 # Sorting data
 pixar_movies = pixar_movies.sort(['Opening Weekend'],ascending=[True])
@@ -31,6 +39,7 @@ median_age = numpy.median(titanic_survival["age"])
 
 # calculating Mean
 mean_age = titanic_survival["age"].mean()
+mean_age = numpy.mean(age_list)
 
 # calculating skew
 skew_age = skew(titanic_survival["age"])
@@ -56,6 +65,9 @@ def calculate_std_deviation(col_name):
     variance = sum(mean_sq_diff)/len(mean_sq_diff)
     std_deviation = variance ** (1/2)
     return std_deviation
+
+# how many standard deviations away from the mean
+abs(value - mean)/standard_deviation
 
 # Find the co-relation between two set of values
 from scipy.stats.stats import pearsonr
