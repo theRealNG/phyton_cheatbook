@@ -47,3 +47,15 @@ def number_of_combinations(N, k):
     return math.factorial(N) / ( math.factorial(k) * math.factorial(N - k) )
 
 prob_combination_3 = number_of_combinations(5, 3) * ( 0.7 * 0.7 * 0.7 * 0.3 * 0.3 )
+
+# using scipy
+from scipy import linspace
+from scipy.stats import binom
+
+# Create a range of numbers from 0 to 3, with 4 elements (each number has one entry).
+outcome_counts = linspace(0,5,6)
+
+# Create the binomial probabilities, one for each entry in outcome_counts.
+# N = 5, p = 0.7
+dist = binom.pmf(outcome_counts,5,0.7)
+# returns list of probablities starting with prob of 0 days sunny out of 5 days to 5 days sunny out of 5 days
